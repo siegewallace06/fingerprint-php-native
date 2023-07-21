@@ -7,9 +7,9 @@
  */
 
 $databaseHost = 'localhost';
-$databaseName = 'fingerprint_user';
-$databaseUsername = 'root';
-$databasePassword = 'root';
+$databaseName = 'fingerprint';
+$databaseUsername = 'mysql';
+$databasePassword = 'mysql';
 
 $mysqli = mysqli_connect($databaseHost, $databaseUsername, $databasePassword, $databaseName);
 
