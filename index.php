@@ -40,7 +40,7 @@
               <div class="input-group input-group-newsletter" style="padding:10px 0;">
                 <button class="btn btn-secondary" type="submit" name="login">Login</button>
                 <!-- Register Button -->
-                <button class="btn btn-secondary" type="button" name="register" onclick="window.location.href='register/'">Register</button>
+                <button class="btn btn-secondary" type="button" name="register" onclick="window.location.href='register/'" style="margin-left: 10px;">Register</button>
             </form>
 
           </div>
