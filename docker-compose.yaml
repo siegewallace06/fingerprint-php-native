@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:80"
+      - "8088:80"
     depends_on:
       - db
 
@@ -15,6 +15,6 @@ services:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: your_database_name
+      MYSQL_DATABASE: fingerprint
       MYSQL_USER: mysql
       MYSQL_PASSWORD: mysql
