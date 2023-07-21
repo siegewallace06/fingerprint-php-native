@@ -29,7 +29,7 @@
       <div class="row h-100">
         <div class="col-12 my-auto">
           <div class="masthead-content text-white py-5 py-md-0">
-            <h1 class="mb-3"><i class="fa fa-adn"></i> Capstone Design Algorithm</h1>
+            <h1 class="mb-3"><i class="fa fa-adn"></i> Login</h1>
             <form method='post' action="login.php">
               <div class="input-group input-group-newsletter" style="padding:10px 0;">
                 <input type="text" name="username" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon" required autofocus>
