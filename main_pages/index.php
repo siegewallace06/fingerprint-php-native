@@ -1,13 +1,12 @@
-//<?php
-    // session_start();
-    // if ( !isset($_SESSION['name'])){// handling if dont'have session
+<?php
+// Check if the user is already logged in, if no then redirect him to index page (login)
+session_start();
+if (!isset($_SESSION["is_logged_in"])) {
+    header("location: ../index.php");
+    exit;
+}
 
-    //  header('location:../index.php'); 
-    //  exit();
-    // } 
-    // $name = $_SESSION['name'];
-    // 
-    ?>
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,7 +43,7 @@
                     <li class="nav__item"><a href="#services" class="nav__link">Info</a></li>
                     <li class="nav__item"><a href="#menu" class="nav__link">Hasil</a></li>
                     <li class="nav__item"><a href="#contact" class="nav__link">Contact us</a></li>
-                    <li class="nav__item"><a href="#contact" class="nav__link">Logout</a></li>
+                    <li class="nav__item"><a href="logout.php" class="nav__link">Logout</a></li>
 
                     <li><i class='bx bx-moon change-theme' id="theme-button"></i></li>
                 </ul>

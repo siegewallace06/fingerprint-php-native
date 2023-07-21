@@ -30,7 +30,7 @@
         <div class="col-12 my-auto">
           <div class="masthead-content text-white py-5 py-md-0">
             <h1 class="mb-3"><i class="fa fa-adn"></i> Capstone Design Algorithm</h1>
-            <form method='post' action="login-process.php">
+            <form method='post' action="login.php">
               <div class="input-group input-group-newsletter" style="padding:10px 0;">
                 <input type="text" name="username" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon" required autofocus>
               </div>
@@ -39,14 +39,16 @@
               </div>
               <div class="input-group input-group-newsletter" style="padding:10px 0;">
                 <button class="btn btn-secondary" type="submit" name="login">Login</button>
-              </div>
+                <!-- Register Button -->
+                <button class="btn btn-secondary" type="button" name="register" onclick="window.location.href='register/'">Register</button>
             </form>
+
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="social-icons">
+  <!-- <div class="social-icons">
     <ul class="list-unstyled text-center mb-0">
       <li class="list-unstyled-item">
         <a href="#">
@@ -64,7 +66,7 @@
         </a>
       </li>
     </ul>
-  </div>
+  </div> -->
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
