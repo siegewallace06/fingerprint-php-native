@@ -208,7 +208,7 @@ $username = $_SESSION['username'];
         </section>
 
         <!--========== CONTACT US ==========-->
-        <section class="contact section bd-container" id="contact">
+        <!-- <section class="contact section bd-container" id="contact">
             <div class="contact__container bd-grid">
                 <div class="contact__data">
                     <span class="section-subtitle contact__initial">Mari Diskusi</span>
@@ -220,11 +220,11 @@ $username = $_SESSION['username'];
                     <a href="#" class="button">Contact us now</a>
                 </div>
             </div>
-        </section>
+        </section> -->
     </main>
 
     <!--========== Logout ==========-->
-    <section class="contact section bd-container" id="contact">
+    <!-- <section class="contact section bd-container" id="contact">
         <div class="contact__container bd-grid">
             <div class="contact__data">
                 <span class="section-subtitle contact__initial">User 1</span>
@@ -235,7 +235,7 @@ $username = $_SESSION['username'];
 
             </div>
         </div>
-    </section>
+    </section> -->
 
     </main>
 
