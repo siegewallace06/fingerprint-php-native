@@ -23,7 +23,7 @@ $username = $_SESSION['username'];
     <!--========== CSS ==========-->
     <link rel="stylesheet" href="assets/css/styles.css">
 
-    <title>Capstone Design</title>
+    <title>Monitoring Kepribadian Anak</title>
 </head>
 
 <body>
@@ -242,7 +242,7 @@ $username = $_SESSION['username'];
 
     <!--========== FOOTER ==========-->
     <footer class="footer section bd-container">
-        <div class="footer__container bd-grid">
+        <!-- <div class="footer__container bd-grid">
             <div class="footer__content">
                 <a href="#" class="footer__logo">Monitoring Kepribadian Anak</a>
                 <span class="footer__description">Teknik Komputer</span>
@@ -263,28 +263,28 @@ $username = $_SESSION['username'];
                 </ul>
             </div>
 
-            <div class="footer__content">
-                <h3 class="footer__title">Information</h3>
-                <ul>
-                    <li><a href="#" class="footer__link">About us</a></li>
-                    <li><a href="#" class="footer__link">Contact us</a></li>
-                    <li><a href="#" class="footer__link">Privacy policy</a></li>
-                    <li><a href="#" class="footer__link">Terms of services</a></li>
-                </ul>
-            </div>
-
-            <div class="footer__content">
-                <h3 class="footer__title">Adress</h3>
-                <ul>
-                    <li>Bandung - Buahbatu</li>
-                    <li>Telkom University</li>
-                    <li>0852-8764-xxx</li>
-                    <li>monitoringKepribadian@email.com</li>
-                </ul>
-            </div>
+        <div class="footer__content">
+            <h3 class="footer__title">Information</h3>
+            <ul>
+                <li><a href="#" class="footer__link">About us</a></li>
+                <li><a href="#" class="footer__link">Contact us</a></li>
+                <li><a href="#" class="footer__link">Privacy policy</a></li>
+                <li><a href="#" class="footer__link">Terms of services</a></li>
+            </ul>
         </div>
 
-        <p class="footer__copy">&#169; 2023 Team Capstone Design. All right reserved</p>
+        <div class="footer__content">
+            <h3 class="footer__title">Adress</h3>
+            <ul>
+                <li>Bandung - Buahbatu</li>
+                <li>Telkom University</li>
+                <li>0852-8764-xxx</li>
+                <li>monitoringKepribadian@email.com</li>
+            </ul>
+        </div>
+        </div> -->
+
+        <!-- <p class="footer__copy">&#169; 2023 Team Capstone Design. All right reserved</p> -->
     </footer>
 
     <!--========== SCROLL REVEAL ==========-->
