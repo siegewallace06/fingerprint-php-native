@@ -10,7 +10,7 @@
 $databaseHost = 'localhost';
 $databaseName = 'fingerprint_test';
 $databaseUsername = 'root';
-$databasePassword = '';
+$databasePassword = 'root';
 
 // Add Try Catch to handle error
 try {
