@@ -28,7 +28,7 @@ if (isset($_POST['submit'])) {
     include_once("../config.php");
 
     // Insert user data into table
-    $result = mysqli_query($mysqli, "INSERT INTO user(username,umur,orangTua,kelas,password,fullname) VALUES('$username','$umur','$orangTua',$kelas','$password','$fullname')");
+    $result = mysqli_query($mysqli, "INSERT INTO user(username,tanggalLahir,umur,orangTua,kelas,password,fullname) VALUES('$username','$umur','$orangTua',$kelas','$tanggalLahir', '$password','$fullname')");
 
     header("Location: ../index.php");
 }
