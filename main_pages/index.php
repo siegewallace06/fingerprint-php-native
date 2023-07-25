@@ -64,10 +64,10 @@ $username = $_SESSION['username'];
             <div class="home__container bd-container bd-grid">
                 <div class="home__data">
                     <h1 class="home__title">Monitoring Kepribadian Anak</h1>
-                    <a href="#" class="button">Masukkan Sidik Jari
+                    <!-- <a href="#" class="button">Masukkan Sidik Jari
                         <a href="http://localhost/website/">
                             <input type="submit" />
-                        </a>
+                        </a> -->
                     </a>
                 </div>
 
@@ -84,7 +84,7 @@ $username = $_SESSION['username'];
                     <p class="about__description">Sidik jari merupakan bagian dari tubuh manusia yang menarik untuk diteliti sejak dulu. Berbagai macam informasi seperti dominan otak, kepribadian, serta potensi terkandung pada sidik jari. Dengan mengetahui dominan otak, kepribadian, serta potensi, individu dapat mengembangkan dan mengasah diri menjadi lebih baik. Dalam proses mengembangkan dan mengasah kemampuan anak, orang tua dapat mengarahkan, membimbing, serta mendidik sesuai dengan potensi dan kepribadian si anak</p>
                 </div>
 
-                <img src="assets/img\1831793875.jpg" alt="" class="about__img">
+                <img src="assets/img/1831793875.jpg" alt="" class="about__img">
             </div>
         </section>
 
