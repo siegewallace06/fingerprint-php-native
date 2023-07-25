@@ -12,6 +12,7 @@ if (isset($_POST['submit'])) {
     $umur = $_POST['umur'];
     $orangTua = $_POST['orangTua'];
     $kelas = $_POST['kelas'];
+    $tanggalLahir = $_POST['tanggalLahir'];
     $password = $_POST['password'];
 
 
@@ -20,9 +21,10 @@ if (isset($_POST['submit'])) {
     echo "Kelas: " . $kelas . "<br>";
     echo "Password: " . $password . "<br>";
     echo "orangTua: " . $orangTua . "<br>";
+    echo "tanggalLahir: " . $tanggalLahir . "<br>";
     echo "umur: " . $password . "<br>";
 
-    // // Include Database Connection File
+    // Include Database Connection File
     include_once("../config.php");
 
     // Insert user data into table
