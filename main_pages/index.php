@@ -7,7 +7,74 @@ if (!isset($_SESSION["is_logged_in"])) {
 }
 
 $username = $_SESSION['username'];
+$kelas = $_SESSION['kelas'];
+$umur = $_SESSION['umur'];
+$tanggalLahir = $_SESSION['tanggalLahir'];
 
+
+// Sample data array (you can make this dynamic)
+$data = [
+    [
+        "model" => "Arch",
+        "Desc" => "Cenderung bersifat memegang nilai-nilai tradisional dan akhlak yang tinggi, tetap berpandangan tradisional mengenai ambisi, karier, dan kepemimpinan."
+    ],
+    [
+        "model" => "Left Loop",
+        "Desc" => "Cenderung bersifat serius dan mempunyai ingatan visual yang tinggi"
+    ],
+    [
+        "model" => "Right Loop",
+        "Desc" => "Cenderung bersifat hati-hati, waspada, dan observatif. Tipe ini merupakan gabungan dari whorl dan loop"
+    ],
+    [
+        "model" => "Tented Arch",
+        "Desc" => "Cenderung menunjukkan antusiasme dan gairah, impulsif, dan terlibat secara mendalam dengan segala sesuatu yang ditanganinya"
+    ],
+    [
+        "model" => "Whorl",
+        "Desc" => "Cenderung bersifat jujur, kritis, perfeksionis, kompetitif, komunikatif, dan berkemauan keras."
+    ],
+    // You can have more data here...
+];
+
+// Function to find the dominant model from the data array
+function findDominantModel($data)
+{
+    $modelCounts = array_count_values(array_column($data, 'model'));
+    arsort($modelCounts);
+    $dominantModel = key($modelCounts);
+    return $dominantModel ? $dominantModel : $data[0]['model'];
+}
+
+// Find the dominant model or the first index if no dominant
+$dominantModel = findDominantModel($data);
+
+// Find the description of the dominant model
+$dominantDesc = '';
+foreach ($data as $item) {
+    if ($item['model'] === $dominantModel) {
+        $dominantDesc = $item['Desc'];
+        break;
+    }
+}
+
+function getMarginForModel($modelName)
+{
+    switch ($modelName) {
+        case "Arch":
+            return 65; // Set the margin value for Arch model
+        case "Left Loop":
+            return 55; // Set the margin value for Left Loop model
+        case "Right Loop":
+            return 55; // Set the margin value for Right Loop model
+        case "Tented Arch":
+            return 80; // Set the margin value for Tented Arch model
+        case "Whorl":
+            return 70; // Set the margin value for Whorl model
+        default:
+            return 0; // Set a default margin value
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,6 +91,52 @@ $username = $_SESSION['username'];
     <link rel="stylesheet" href="assets/css/styles.css">
 
     <title>Monitoring Kepribadian Anak</title>
+
+    <style>
+        .services__container__result {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            /* Adjust the gap as needed for spacing between grid items */
+        }
+
+        .services__content {
+            text-align: center;
+            /* Center content within each grid item */
+        }
+
+        .services__content img {
+            width: 80px;
+            /* Adjust the width of the images as needed */
+        }
+
+        /* Adjust spacing for the title within each grid item */
+        .services__title {
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        .result_content {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-details {
+            margin-left: 50px;
+        }
+
+        .description_model {
+            display: flex;
+            justify-content: center;
+            margin-left: 500px;
+            margin-right: 500px;
+            text-align: center;
+            margin-top: 50px;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -64,10 +177,10 @@ $username = $_SESSION['username'];
             <div class="home__container bd-container bd-grid">
                 <div class="home__data">
                     <h1 class="home__title">Monitoring Kepribadian Anak</h1>
-                    <!-- <a href="#" class="button">Masukkan Sidik Jari
+                    <a href="#" class="button">Masukkan Sidik Jari
                         <a href="http://localhost/website/">
                             <input type="submit" />
-                        </a> -->
+                        </a>
                     </a>
                 </div>
 
@@ -200,6 +313,68 @@ $username = $_SESSION['username'];
             </div>
         </section>
 
+
+        <section class="services section bd-container" id="services">
+            <span class="section-subtitle">Result Description</span>
+            <h2 class="section-title">Tipe Sidik Jari</h2>
+            <div class="services__container__result bd-grid">
+                <?php foreach ($data as $item) { ?>
+                    <div class="services__content">
+                        <div class="w-10">
+                            <?php
+                            // Replace the img element based on the data.model
+                            switch ($item["model"]) {
+                                case "Arch":
+                                    echo '<img src="../img/arch.png" width="80px" />';
+                                    break;
+                                case "Left Loop":
+                                    echo '<img src="../img/left_loop.png" width="80px" />';
+                                    break;
+                                case "Right Loop":
+                                    echo '<img src="../img/loop.png" width="80px" />';
+                                    break;
+                                case "Tented Arch":
+                                    echo '<img src="../img/tented_arch.jpg" width="100px" />';
+                                    break;
+                                case "Whorl":
+                                    echo '<img src="../img/whorl.png" width="80px" />';
+                                    break;
+                                default:
+                                    // You can add a default image here if needed
+                                    break;
+                            }
+                            ?>
+                        </div>
+                        <div style="margin-top: <?php echo getMarginForModel($item["model"]); ?>px">
+                            <h3 class="services__title"><?= $item["model"] ?></h3>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
+        </section>
+
+        <section class="services__container bd-grid">
+            <div class="services__content">
+                <div class="result_content">
+                    <div class="w-10">
+                        <img src="../img/arch.png" width="80px" />
+                    </div>
+                    <div>
+                        <!-- <h3 class="services__title">Ibu Jari</h3> -->
+                        <ul class="profile-details">
+                            <li><strong>Username :</strong> <?php echo $username ?> </li>
+                            <li><strong>Tanggal Lahir:</strong> <?php echo date('Y-m-d', strtotime($tanggalLahir)) ?> </li>
+                            <li><strong>Umur :</strong> <?php echo $umur ?> </li>
+                            <li><strong>Kelas :</strong> <?php echo $kelas ?> </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="description_model">
+                    <span> Termasuk tipe sidik jari <strong><?php echo $dominantModel; ?></strong><br> <?php echo $dominantDesc; ?></span>
+                </div>
+            </div>
+        </section>
+
         <!--===== APP =======-->
         <section class="app section bd-container">
             <div class="app__container bd-grid">
@@ -215,85 +390,12 @@ $username = $_SESSION['username'];
                 <img src="assets/img/movil-app.png" alt="" class="app__img">
             </div>
         </section>
-
-        <!--========== CONTACT US ==========-->
-        <!-- <section class="contact section bd-container" id="contact">
-            <div class="contact__container bd-grid">
-                <div class="contact__data">
-                    <span class="section-subtitle contact__initial">Mari Diskusi</span>
-                    <h2 class="section-title contact__initial">Contact us</h2>
-                    <p class="contact__description">belum ada isinya</p>
-                </div>
-
-                <div class="contact__button">
-                    <a href="#" class="button">Contact us now</a>
-                </div>
-            </div>
-        </section> -->
     </main>
-
-    <!--========== Logout ==========-->
-    <!-- <section class="contact section bd-container" id="contact">
-        <div class="contact__container bd-grid">
-            <div class="contact__data">
-                <span class="section-subtitle contact__initial">User 1</span>
-            </div>
-
-            <div class="contact__button">
-                <a href="#" class="button">Logout</a>
-
-            </div>
-        </div>
-    </section> -->
-
     </main>
 
 
     <!--========== FOOTER ==========-->
     <footer class="footer section bd-container">
-        <!-- <div class="footer__container bd-grid">
-            <div class="footer__content">
-                <a href="#" class="footer__logo">Monitoring Kepribadian Anak</a>
-                <span class="footer__description">Teknik Komputer</span>
-                <div>
-                    <a href="#" class="footer__social"><i class='bx bxl-facebook'></i></a>
-                    <a href="#" class="footer__social"><i class='bx bxl-instagram'></i></a>
-                    <a href="#" class="footer__social"><i class='bx bxl-twitter'></i></a>
-                </div>
-            </div>
-
-            <div class="footer__content">
-                <h3 class="footer__title">Services</h3>
-                <ul>
-                    <li><a href="#" class="footer__link">Deployment Website</a></li>
-                    <li><a href="#" class="footer__link">Deployment Algorithm</a></li>
-                    <li><a href="#" class="footer__link">Deployment Hardware</a></li>
-                    <li><a href="#" class="footer__link">Maping</a></li>
-                </ul>
-            </div>
-
-        <div class="footer__content">
-            <h3 class="footer__title">Information</h3>
-            <ul>
-                <li><a href="#" class="footer__link">About us</a></li>
-                <li><a href="#" class="footer__link">Contact us</a></li>
-                <li><a href="#" class="footer__link">Privacy policy</a></li>
-                <li><a href="#" class="footer__link">Terms of services</a></li>
-            </ul>
-        </div>
-
-        <div class="footer__content">
-            <h3 class="footer__title">Adress</h3>
-            <ul>
-                <li>Bandung - Buahbatu</li>
-                <li>Telkom University</li>
-                <li>0852-8764-xxx</li>
-                <li>monitoringKepribadian@email.com</li>
-            </ul>
-        </div>
-        </div> -->
-
-        <!-- <p class="footer__copy">&#169; 2023 Team Capstone Design. All right reserved</p> -->
     </footer>
 
     <!--========== SCROLL REVEAL ==========-->
