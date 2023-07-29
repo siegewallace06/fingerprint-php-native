@@ -18,7 +18,7 @@
   <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="css/coming-soon.min.css" rel="stylesheet">
+  <link href="css/coming-soon.css" rel="stylesheet">
 </head>
 
 <body>

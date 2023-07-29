@@ -13,6 +13,8 @@ if (isset($_POST['submit'])) {
     $orangTua = $_POST['orangTua'];
     $kelas = $_POST['kelas'];
     $tanggalLahir = $_POST['tanggalLahir'];
+    // convert date to mysql date format
+    $tanggalLahir = date('Y-m-d', strtotime($tanggalLahir));
     $password = $_POST['password'];
 
 
@@ -27,10 +29,21 @@ if (isset($_POST['submit'])) {
     // Include Database Connection File
     include_once("../config.php");
 
-    // Insert user data into table
-    $result = mysqli_query($mysqli, "INSERT INTO user(username,tanggalLahir,umur,orangTua,kelas,password,fullname) VALUES('$username','$umur','$orangTua',$kelas','$tanggalLahir', '$password','$fullname')");
-
-    header("Location: ../index.php");
+    // Insert user data into table with Try Catch
+    try {
+        // Execute the query
+        $result = $mysqli->query("INSERT INTO user (username, password, umur, kelas, orangTua, tanggalLahir, fullname) VALUES('$username', '$password', '$umur', '$kelas', '$orangTua', '$tanggalLahir', '$fullname')");
+        if (!$result) {
+            throw new Exception($mysqli->error);
+        }
+        echo "<script>alert('Register Berhasil!'); window.location.href='../index.php';</script>";
+        // header("Location: ../index.php");
+    } catch (Exception $e) {
+        // Show Error Pop Up
+        echo "<script>alert('Terjadi Kesalahan pada proses register!'); window.location.href='index.html';</script>";
+        // echo "Terjadi Kesalahan pada proses register!";
+        // Redirect to Register Page
+    }
 }
 
 

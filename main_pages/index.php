@@ -1,12 +1,12 @@
 <?php
 // Check if the user is already logged in, if no then redirect him to index page (login)
-// session_start();
-// if (!isset($_SESSION["is_logged_in"])) {
-//     header("location: ../index.php");
-//     exit;
-// }
+session_start();
+if (!isset($_SESSION["is_logged_in"])) {
+    header("location: ../index.php");
+    exit;
+}
 
-// $username = $_SESSION['username'];
+$username = $_SESSION['username'];
 
 ?>
 <!DOCTYPE html>
@@ -64,10 +64,10 @@
             <div class="home__container bd-container bd-grid">
                 <div class="home__data">
                     <h1 class="home__title">Monitoring Kepribadian Anak</h1>
-                    <a href="#" class="button">Masukkan Sidik Jari
+                    <!-- <a href="#" class="button">Masukkan Sidik Jari
                         <a href="http://localhost/website/">
                             <input type="submit" />
-                        </a>
+                        </a> -->
                     </a>
                 </div>
 
@@ -84,7 +84,7 @@
                     <p class="about__description">Sidik jari merupakan bagian dari tubuh manusia yang menarik untuk diteliti sejak dulu. Berbagai macam informasi seperti dominan otak, kepribadian, serta potensi terkandung pada sidik jari. Dengan mengetahui dominan otak, kepribadian, serta potensi, individu dapat mengembangkan dan mengasah diri menjadi lebih baik. Dalam proses mengembangkan dan mengasah kemampuan anak, orang tua dapat mengarahkan, membimbing, serta mendidik sesuai dengan potensi dan kepribadian si anak</p>
                 </div>
 
-                <img src="assets/img\1831793875.jpg" alt="" class="about__img">
+                <img src="assets/img/1831793875.jpg" alt="" class="about__img">
             </div>
         </section>
 
@@ -157,9 +157,9 @@
                 </div>
                 <div class="services__content">
                     <div>
-                        <img src="../img/tented_arch.png" width="100px" />
+                        <img src="../img/tented_arch.jpg" width="100px" />
                     </div>
-                    <div style="margin-top: 60px;">
+                    <div style="margin-top: 40px;">
                         <h3 class="services__title">Tented Arch</h3>
                         <p class="services__description">Cenderung menunjukan antusiasme dan gairah, impulsif, dan terlibat secara mendalam dengan segala sesuatu yang ditanganinya</p>
                     </div>
