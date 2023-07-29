@@ -7,9 +7,10 @@ if (isset($_POST['login'])) {
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 
-	$sql_query = "SELECT id, username, umur, kelas, password FROM user 
-                  WHERE username='$username' AND password='$password'
-                  LIMIT 1"; //sql query
+	$sql_query = "SELECT * FROM user 
+              WHERE username='$username' AND password='$password'
+              LIMIT 1";
+
 
 	$result = $mysqli->query($sql_query);
 
@@ -20,6 +21,8 @@ if (isset($_POST['login'])) {
 		$_SESSION['username'] = $row['username'];
 		$_SESSION['umur'] = $row['umur'];
 		$_SESSION['kelas'] = $row['kelas'];
+		$_SESSION['tanggalTes'] = $row['tanggalTes'];
+		$_SESSION['tanggalLahir'] = $row['tanggalLahir'];
 		$_SESSION['is_logged_in'] = 1;
 		header('location:main_pages/');
 		exit();

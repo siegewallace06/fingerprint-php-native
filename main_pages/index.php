@@ -46,7 +46,7 @@ $username = $_SESSION['username'];
                     <li class="nav__item"><a href="#menu" class="nav__link">Hasil</a></li>
                     <!-- <li class="nav__item"><a href="#contact" class="nav__link">Contact us</a></li> -->
                     <li class="nav__item"><a href="logout.php" class="nav__link">Logout</a></li>
-                    <li class="nav__item">Halo <?php echo $username ?></li>
+                    <li class="nav__item">Halo <a href="../profile/"><?php echo $username ?></a></li>
 
                     <li><i class='bx bx-moon change-theme' id="theme-button"></i></li>
                 </ul>
