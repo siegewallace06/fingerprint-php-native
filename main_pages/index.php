@@ -75,6 +75,25 @@ function getMarginForModel($modelName)
             return 0; // Set a default margin value
     }
 }
+
+//If you wan to call and replace the data with the API Response
+
+// function getDataFromAPI($url)
+// {
+//     $response = file_get_contents($url);
+//     return json_decode($response, true); // Convert JSON to associative array
+// }
+
+// // Define the URL from which you want to get the data (replace 'YOUR_API_URL' with the actual API URL)
+// $apiUrl = 'YOUR_API_URL';
+
+// // Make the GET request and get the data
+// $apiData = getDataFromAPI($apiUrl);
+
+// // If the API data is successfully retrieved, update the $data array
+// if (!empty($apiData) && is_array($apiData)) {
+//     $data = $apiData;
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
