@@ -1,12 +1,12 @@
 <?php
 // Check if the user is already logged in, if no then redirect him to index page (login)
-session_start();
-if (!isset($_SESSION["is_logged_in"])) {
-    header("location: ../index.php");
-    exit;
-}
+// session_start();
+// if (!isset($_SESSION["is_logged_in"])) {
+//     header("location: ../index.php");
+//     exit;
+// }
 
-$username = $_SESSION['username'];
+// $username = $_SESSION['username'];
 
 ?>
 <!DOCTYPE html>
@@ -121,42 +121,51 @@ $username = $_SESSION['username'];
                     <div class="w-10">
                         <img src="../img/arch.png" width="80px" />
                     </div>
-                    <div style="margin-top: 40px;">
-                        <h3 class="services__title">Arch (Accdental)</h3>
-                        <p class="services__description">Cenderung bersifat memegang nilai-nilai tradisional dan akhlak yang tinggi, tetap berpandangan tradisional mengenai ambisi, karier, dan kepemimpinan.</p>
+                    <div style="margin-top: 55px;">
+                        <h3 class="services__title">Arch (Accidental)</h3>
+                        <p class="services__description">Cenderung bersifat memegang nilai - nilai tradisional dan akhlak yang tinggi, tetap berpandangan tradisional mengenai ambisis, karier, dan kepemimpinan</p>
                     </div>
                 </div>
-
+                <div class="services__content">
+                    <div class="w-10">
+                        <img src="../img/left_loop.png" width="80px" />
+                    </div>
+                    <div style="margin-top: 40px;">
+                        <h3 class="services__title">Left Loop</h3>
+                        <p class="services__description">Cenderung bersifat serius dan mempunyai ingatan yang tinggi</p>
+                    </div>
+                </div>
+            </div>
+            <div class="services__container  bd-grid">
+                <div class="services__content">
+                    <div class="w-10">
+                        <img src="../img/loop.png" width="80px" />
+                    </div>
+                    <div style="margin-top: 40px;">
+                        <h3 class="services__title">Right Loop</h3>
+                        <p class="services__description">Cenderung bersifat hati-hati, waspada, dan observatif. Tipe ini merupakan gabungan dari whorl dan loop</p>
+                    </div>
+                </div>
                 <div class="services__content">
                     <div>
                         <img src="../img/whorl.png" width="80px" />
                     </div>
-                    <div style="margin-top: 40px;">
+                    <div style="margin-top: 55px;">
                         <h3 class="services__title">Whorl (Plain Whorl)</h3>
-                        <p class="services__description">Cenderung bersifat jujur, kritis, perfeksionis, kompetitif, komunikatif, dan berkemauan keras.</p>
+                        <p class="services__description">Cenderung bersifat jujur, kritis, perfeksionis, kompetitif, komunikatif, dan berkemauan keras</p>
                     </div>
                 </div>
-
                 <div class="services__content">
                     <div>
-                        <img src="../img/loop.png" width="80px" />
+                        <img src="../img/tented_arch.png" width="100px" />
                     </div>
-                    <div style="margin-top: 20px;">
-                        <h3 class="services__title">Loop (Central Pocket Loop)</h3>
-                        <p class="services__description">Cenderung bersifat serius dan mempunyai ingatan visual yang tinggi</p>
-                    </div>
-                </div>
-
-                <div class="services__content">
-                    <div>
-                        <img src="../img/loop.png" width="80px" />
-                    </div>
-                    <div style="margin-top: 20px;">
-                        <h3 class="services__title">Double Loop</h3>
-                        <p class="services__description">Cenderung bersifat hati-hati, waspada, dan observatif. Tipe ini merupakan gabungan dari whorl dan loop</p>
+                    <div style="margin-top: 60px;">
+                        <h3 class="services__title">Tented Arch</h3>
+                        <p class="services__description">Cenderung menunjukan antusiasme dan gairah, impulsif, dan terlibat secara mendalam dengan segala sesuatu yang ditanganinya</p>
                     </div>
                 </div>
             </div>
+
         </section>
 
         <!--========== MENU ==========-->
