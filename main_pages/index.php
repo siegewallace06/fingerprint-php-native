@@ -361,7 +361,29 @@ function getMarginForModel($modelName)
                 <div class="services__content">
                     <div class="result_content">
                         <div class="w-10">
-                            <img src="../img/arch.png" width="80px" />
+                            <?php
+                            // Replace the img element based on the dominant model
+                            switch ($dominantModel) {
+                                case "Arch":
+                                    echo '<img src="../img/arch.png" width="80px" />';
+                                    break;
+                                case "Left Loop":
+                                    echo '<img src="../img/left_loop.png" width="80px" />';
+                                    break;
+                                case "Right Loop":
+                                    echo '<img src="../img/loop.png" width="80px" />';
+                                    break;
+                                case "Tented Arch":
+                                    echo '<img src="../img/tented_arch.jpg" width="100px" />';
+                                    break;
+                                case "Whorl":
+                                    echo '<img src="../img/whorl.png" width="80px" />';
+                                    break;
+                                default:
+                                    // You can add a default image here if needed
+                                    break;
+                            }
+                            ?>
                         </div>
                         <div>
                             <!-- <h3 class="services__title">Ibu Jari</h3> -->
