@@ -10,6 +10,7 @@ $username = $_SESSION['username'];
 $kelas = $_SESSION['kelas'];
 $umur = $_SESSION['umur'];
 $tanggalLahir = $_SESSION['tanggalLahir'];
+$tanggalTes = $_SESSION['tanggalTes'];
 
 
 // Sample data array (you can make this dynamic)
@@ -27,7 +28,7 @@ $data = [
         "Desc" => "Cenderung bersifat hati-hati, waspada, dan observatif. Tipe ini merupakan gabungan dari whorl dan loop"
     ],
     [
-        "model" => "Tented Arch",
+        "model" => "Whorl",
         "Desc" => "Cenderung menunjukkan antusiasme dan gairah, impulsif, dan terlibat secara mendalam dengan segala sesuatu yang ditanganinya"
     ],
     [
@@ -36,6 +37,8 @@ $data = [
     ],
     // You can have more data here...
 ];
+
+// $data = null;
 
 // Function to find the dominant model from the data array
 function findDominantModel($data)
@@ -76,24 +79,43 @@ function getMarginForModel($modelName)
     }
 }
 
-//If you wan to call and replace the data with the API Response
+// Set the URL endpoint
+$url = "https://com-copy.runblade.host/predict";
 
-// function getDataFromAPI($url)
-// {
-//     $response = file_get_contents($url);
-//     return json_decode($response, true); // Convert JSON to associative array
-// }
+// Prepare the data to be sent in the payload
+$data = array(
+    'user_id' => 'Kinanti'
+);
 
-// // Define the URL from which you want to get the data (replace 'YOUR_API_URL' with the actual API URL)
-// $apiUrl = 'YOUR_API_URL';
+// Convert the data to JSON format
+$jsonPayload = json_encode($data);
 
-// // Make the GET request and get the data
-// $apiData = getDataFromAPI($apiUrl);
+// Initialize cURL session
+$ch = curl_init();
 
-// // If the API data is successfully retrieved, update the $data array
-// if (!empty($apiData) && is_array($apiData)) {
-//     $data = $apiData;
-// }
+// Set cURL options
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonPayload);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+// Execute the POST request
+$response = curl_exec($ch);
+
+// Check for cURL errors
+if (curl_errno($ch)) {
+    echo 'Error: ' . curl_error($ch);
+}
+
+// Close cURL session
+curl_close($ch);
+
+// Display the response
+echo $response;
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -156,6 +178,7 @@ function getMarginForModel($modelName)
         }
     </style>
 
+
 </head>
 
 <body>
@@ -196,7 +219,7 @@ function getMarginForModel($modelName)
             <div class="home__container bd-container bd-grid">
                 <div class="home__data">
                     <h1 class="home__title">Monitoring Kepribadian Anak</h1>
-                    <a href="#" class="button">Masukkan Sidik Jari
+                    <a href="#" class="button" id="submitBtn">Masukkan Sidik Jari
                         <a href="http://localhost/website/">
                             <input type="submit" />
                         </a>
@@ -333,66 +356,70 @@ function getMarginForModel($modelName)
         </section>
 
 
-        <section class="services section bd-container" id="services">
-            <span class="section-subtitle">Result Description</span>
-            <h2 class="section-title">Tipe Sidik Jari</h2>
-            <div class="services__container__result bd-grid">
-                <?php foreach ($data as $item) { ?>
-                    <div class="services__content">
-                        <div class="w-10">
-                            <?php
-                            // Replace the img element based on the data.model
-                            switch ($item["model"]) {
-                                case "Arch":
-                                    echo '<img src="../img/arch.png" width="80px" />';
-                                    break;
-                                case "Left Loop":
-                                    echo '<img src="../img/left_loop.png" width="80px" />';
-                                    break;
-                                case "Right Loop":
-                                    echo '<img src="../img/loop.png" width="80px" />';
-                                    break;
-                                case "Tented Arch":
-                                    echo '<img src="../img/tented_arch.jpg" width="100px" />';
-                                    break;
-                                case "Whorl":
-                                    echo '<img src="../img/whorl.png" width="80px" />';
-                                    break;
-                                default:
-                                    // You can add a default image here if needed
-                                    break;
-                            }
-                            ?>
-                        </div>
-                        <div style="margin-top: <?php echo getMarginForModel($item["model"]); ?>px">
-                            <h3 class="services__title"><?= $item["model"] ?></h3>
-                        </div>
-                    </div>
-                <?php } ?>
-            </div>
-        </section>
 
-        <section class="services__container bd-grid">
-            <div class="services__content">
-                <div class="result_content">
-                    <div class="w-10">
-                        <img src="../img/arch.png" width="80px" />
+        <?php if ($tanggalTes !== null) { ?>
+            <section class="services section bd-container" id="services">
+
+                <span class="section-subtitle">Result Description</span>
+                <h2 class="section-title">Tipe Sidik Jari</h2>
+                <div class="services__container__result bd-grid">
+                    <?php foreach ($data as $item) { ?>
+                        <div class="services__content">
+                            <div class="w-10">
+                                <?php
+                                // Replace the img element based on the data.model
+                                switch ($item["model"]) {
+                                    case "Arch":
+                                        echo '<img src="../img/arch.png" width="80px" />';
+                                        break;
+                                    case "Left Loop":
+                                        echo '<img src="../img/left_loop.png" width="80px" />';
+                                        break;
+                                    case "Right Loop":
+                                        echo '<img src="../img/loop.png" width="80px" />';
+                                        break;
+                                    case "Tented Arch":
+                                        echo '<img src="../img/tented_arch.jpg" width="100px" />';
+                                        break;
+                                    case "Whorl":
+                                        echo '<img src="../img/whorl.png" width="80px" />';
+                                        break;
+                                    default:
+                                        // You can add a default image here if needed
+                                        break;
+                                }
+                                ?>
+                            </div>
+                            <div style="margin-top: <?php echo getMarginForModel($item["model"]); ?>px">
+                                <h3 class="services__title"><?= $item["model"] ?></h3>
+                            </div>
+                        </div>
+                    <?php } ?>
+                </div>
+            </section>
+
+            <section class="services__container bd-grid">
+                <div class="services__content">
+                    <div class="result_content">
+                        <div class="w-10">
+                            <img src="../img/arch.png" width="80px" />
+                        </div>
+                        <div>
+                            <!-- <h3 class="services__title">Ibu Jari</h3> -->
+                            <ul class="profile-details">
+                                <li><strong>Username :</strong> <?php echo $username ?> </li>
+                                <li><strong>Tanggal Lahir:</strong> <?php echo date('Y-m-d', strtotime($tanggalLahir)) ?> </li>
+                                <li><strong>Umur :</strong> <?php echo $umur ?> </li>
+                                <li><strong>Kelas :</strong> <?php echo $kelas ?> </li>
+                            </ul>
+                        </div>
                     </div>
-                    <div>
-                        <!-- <h3 class="services__title">Ibu Jari</h3> -->
-                        <ul class="profile-details">
-                            <li><strong>Username :</strong> <?php echo $username ?> </li>
-                            <li><strong>Tanggal Lahir:</strong> <?php echo date('Y-m-d', strtotime($tanggalLahir)) ?> </li>
-                            <li><strong>Umur :</strong> <?php echo $umur ?> </li>
-                            <li><strong>Kelas :</strong> <?php echo $kelas ?> </li>
-                        </ul>
+                    <div class="description_model">
+                        <span> Termasuk tipe sidik jari <strong><?php echo $dominantModel; ?></strong><br> <?php echo $dominantDesc; ?></span>
                     </div>
                 </div>
-                <div class="description_model">
-                    <span> Termasuk tipe sidik jari <strong><?php echo $dominantModel; ?></strong><br> <?php echo $dominantDesc; ?></span>
-                </div>
-            </div>
-        </section>
+            </section>
+        <?php } ?>
 
         <!--===== APP =======-->
         <section class="app section bd-container">
@@ -400,7 +427,7 @@ function getMarginForModel($modelName)
                 <div class="app__data">
                     <span class="section-subtitle app__initial">Hasil</span>
                     <h2 class="section-title app__initial">Kepribadian anak</h2>
-                    <p class="app__description">Belum ada isinya</p>
+                    <p class="app__description">Maaf, anda belum mengikuti tes. Lakukan tes untuk mendapatkan hasil tes</p>
                     <div class="app__stores">
 
                     </div>
