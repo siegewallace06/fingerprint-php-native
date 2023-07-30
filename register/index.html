@@ -17,49 +17,63 @@
     rel="stylesheet">
   <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <link href="../css/coming-soon.css" rel="stylesheet">
+
+  <style>
+    .container_register {
+      height: 100vh;
+    }
+  </style>
+
 </head>
 
 <body>
-    <div class="overlay"></div>
-    <div class="masthead">
-        <div class="masthead-bg"></div>
-        <div class="container h-100">
-            <div class="row h-100">
-                <div class="col-12 my-5">
-                    <div class="masthead-content text-white py-5 py-md-0">
-                        <h1 class="mb-3">Register</h1>
-                        <form method='post' action="register.php">
-                            <div class="input-group input-group-newsletter" style="padding:10px 0;">
-                              <input type="text" name="fullname" class="form-control" placeholder="Full Name" aria-label="FullName" aria-describedby="basic-addon" required autofocus>
-                            </div>
-                            <div class="input-group input-group-newsletter" style="padding:10px 0;">
-                              <input type="text" name="username" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon" required autofocus>
-                            </div>
-                            <div class="input-group input-group-newsletter" style="padding:10px 0;">
-                              <input type="text" name="orangTua" class="form-control" placeholder="Nama Orang Tua" aria-label="orangTua" aria-describedby="basic-addon" required autofocus>
-                            </div>
-                            <div class="input-group input-group-newsletter" style="padding:10px 0;">
-                              <input type="date" name="tanggalLahir" class="form-control" placeholder="Tanggal Lahir" aria-label="tanggalLahir" aria-describedby="basic-addon" required autofocus>
-                            </div>
-                            <div class="input-group input-group-newsletter" style="padding:10px 0;">
-                              <input type="text" name="umur" class="form-control" placeholder="Umur" aria-label="Umur" aria-describedby="basic-addon" required autofocus>
-                            </div>
-                            <div class="input-group input-group-newsletter" style="padding:10px 0;">
-                              <input type="text" name="kelas" class="form-control" placeholder="Kelas" aria-label="Kelas" aria-describedby="basic-addon" required autofocus>
-                            </div>
-                            <div class="input-group input-group-newsletter" style="padding:10px 0;">
-                              <input type="password" name="password" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon" required autofocus>
-                            </div>
-                            <div class="input-group input-group-newsletter" style="padding:10px 0;">
-                              <button class="btn btn-secondary" type="submit" name="submit">Register</button> 
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+  <div class="overlay"></div>
+  <div class="masthead">
+    <div class="masthead-bg"></div>
+    <div class="container container_register">
+      <div class="row h-100">
+        <div class="col-12 my-5">
+          <div class="masthead-content text-white py-5 py-md-0">
+            <h1 class="mb-3">Register</h1>
+            <form method='post' action="register.php">
+              <div class="input-group input-group-newsletter" style="padding:10px 0;">
+                <input type="text" name="fullname" class="form-control" placeholder="Full Name" aria-label="FullName"
+                  aria-describedby="basic-addon" required autofocus>
+              </div>
+              <div class="input-group input-group-newsletter" style="padding:10px 0;">
+                <input type="text" name="username" class="form-control" placeholder="Username" aria-label="Username"
+                  aria-describedby="basic-addon" required autofocus>
+              </div>
+              <div class="input-group input-group-newsletter" style="padding:10px 0;">
+                <input type="text" name="orangTua" class="form-control" placeholder="Nama Orang Tua"
+                  aria-label="orangTua" aria-describedby="basic-addon" required autofocus>
+              </div>
+              <div class="input-group input-group-newsletter" style="padding:10px 0;">
+                <input type="date" name="tanggalLahir" class="form-control" placeholder="Tanggal Lahir"
+                  aria-label="tanggalLahir" aria-describedby="basic-addon" required autofocus>
+              </div>
+              <div class="input-group input-group-newsletter" style="padding:10px 0;">
+                <input type="text" name="umur" class="form-control" placeholder="Umur" aria-label="Umur"
+                  aria-describedby="basic-addon" required autofocus>
+              </div>
+              <div class="input-group input-group-newsletter" style="padding:10px 0;">
+                <input type="text" name="kelas" class="form-control" placeholder="Kelas" aria-label="Kelas"
+                  aria-describedby="basic-addon" required autofocus>
+              </div>
+              <div class="input-group input-group-newsletter" style="padding:10px 0;">
+                <input type="password" name="password" class="form-control" placeholder="Password" aria-label="Username"
+                  aria-describedby="basic-addon" required autofocus>
+              </div>
+              <div class="input-group input-group-newsletter" style="padding:10px 0;">
+                <button class="btn btn-secondary" type="submit" name="submit">Register</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
+  </div>
+  </div>
   </div>
   <!-- Bootstrap core JavaScript -->
   <script src="../vendor/jquery/jquery.min.js"></script>

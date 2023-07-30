@@ -88,18 +88,22 @@ body {
     width: 40.5rem;
     padding-bottom: 0;
   }
+
   .masthead .masthead-bg {
     min-height: 0;
     transform: skewX(-8deg);
     transform-origin: top right;
   }
+
   .masthead .masthead-content {
     padding-left: 3rem;
     padding-right: 10rem;
   }
+
   .masthead .masthead-content h1 {
     font-size: 3.5rem;
   }
+
   .masthead .masthead-content p {
     font-size: 1.3rem;
   }
@@ -117,13 +121,13 @@ body {
   text-align: center;
 }
 
-.social-icons ul > li {
+.social-icons ul>li {
   margin-left: 1rem;
   margin-right: 1rem;
   display: inline-block;
 }
 
-.social-icons ul > li > a {
+.social-icons ul>li>a {
   display: block;
   color: white;
   background-color: rgba(0, 46, 102, 0.8);
@@ -142,27 +146,32 @@ body {
     bottom: 2rem;
     width: auto;
   }
+
   .social-icons ul {
     margin-top: 0;
     width: auto;
   }
-  .social-icons ul > li {
+
+  .social-icons ul>li {
     display: block;
     margin-left: 0;
     margin-right: 0;
     margin-bottom: 2rem;
   }
-  .social-icons ul > li:last-child {
+
+  .social-icons ul>li:last-child {
     margin-bottom: 0;
   }
-  .social-icons ul > li > a {
+
+  .social-icons ul>li>a {
     transition: all 0.2s ease-in-out;
     font-size: 2rem;
     line-height: 4rem;
     height: 4rem;
     width: 4rem;
   }
-  .social-icons ul > li > a:hover {
+
+  .social-icons ul>li>a:hover {
     background-color: #002e66;
   }
 }

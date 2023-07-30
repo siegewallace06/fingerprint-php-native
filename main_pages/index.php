@@ -12,35 +12,18 @@ $umur = $_SESSION['umur'];
 $tanggalLahir = $_SESSION['tanggalLahir'];
 $tanggalTes = $_SESSION['tanggalTes'];
 
+// Check if prediction_results is set in SESSION
+if (isset($_SESSION['prediction_results'])) {
+    // Get the data from SESSION
+    $data = $_SESSION['prediction_results'];
+} else {
+    $data = [];
+    // echo "<script>alert('Selamat Datang!'); </script>";
+}
+
+
 
 // Set data var to NULL
-$data = null;
-
-// Sample data array (you can make this dynamic)
-// $data = [
-//     [
-//         "model" => "Arch",
-//         "Desc" => "Cenderung bersifat memegang nilai-nilai tradisional dan akhlak yang tinggi, tetap berpandangan tradisional mengenai ambisi, karier, dan kepemimpinan."
-//     ],
-//     [
-//         "model" => "Left Loop",
-//         "Desc" => "Cenderung bersifat serius dan mempunyai ingatan visual yang tinggi"
-//     ],
-//     [
-//         "model" => "Right Loop",
-//         "Desc" => "Cenderung bersifat hati-hati, waspada, dan observatif. Tipe ini merupakan gabungan dari whorl dan loop"
-//     ],
-//     [
-//         "model" => "Whorl",
-//         "Desc" => "Cenderung menunjukkan antusiasme dan gairah, impulsif, dan terlibat secara mendalam dengan segala sesuatu yang ditanganinya"
-//     ],
-//     [
-//         "model" => "Whorl",
-//         "Desc" => "Cenderung bersifat jujur, kritis, perfeksionis, kompetitif, komunikatif, dan berkemauan keras."
-//     ],
-//     // You can have more data here...
-// ];
-
 // $data = null;
 
 // Function to find the dominant model from the data array
@@ -49,23 +32,27 @@ function findDominantModel($data)
     $modelCounts = array_count_values(array_column($data, 'model'));
     arsort($modelCounts);
     $dominantModel = key($modelCounts);
+    // If array length is empty then just return dominant model
+    if (count($data) === 0) {
+        return $dominantModel;
+    }
     return $dominantModel ? $dominantModel : $data[0]['model'];
 }
 
 // Find the dominant model or the first index if no dominant
 $dominantModel = '';
 $dominantDesc = '';
-if ($data !== null) {
-    $dominant = findDominantModel($data);
-    $dominantModel = $dominant;
-    // Find the description of the dominant model
-    foreach ($data as $item) {
-        if ($item['model'] === $dominantModel) {
-            $dominantDesc = $item['Desc'];
-            break;
-        }
+
+$dominant = findDominantModel($data);
+$dominantModel = $dominant;
+// Find the description of the dominant model
+foreach ($data as $item) {
+    if ($item['model'] === $dominantModel) {
+        $dominantDesc = $item['Desc'];
+        break;
     }
 }
+
 
 
 
@@ -87,58 +74,6 @@ function getMarginForModel($modelName)
     }
 }
 
-if (isset($_POST['update_date'])) {
-
-
-
-
-    // Prepare the payload with the $username variable
-    $payload = json_encode(array('user_id' => $username));
-
-    $url = 'https://com-copy.runblade.host/predict';
-    $curl = curl_init($url);
-    curl_setopt($curl, CURLOPT_POST, true);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $payload);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-
-    $response = curl_exec($curl);
-    $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-
-    curl_close($curl);
-
-    if ($httpcode === 200) {
-        // Get "prediction_results from the response
-        $data = json_decode($response, true)['prediction_results'];
-        // Print the data on an alert box
-        echo "<script>alert('Data: " . $data . "');</script>";
-    } else {
-        $data['error'] = 'Failed to fetch prediction data.';
-        echo "<script>alert('Failed to fetch prediction data.');</script>";
-    }
-
-    // Include Database Connection File
-    include_once("../config.php");
-
-    $_SESSION['tanggalTes'] = date('Y-m-d');
-
-    // Update tanggalTes in DB from NULL to current date
-    try {
-        // Execute the query
-        $sql_query = "UPDATE user SET tanggalTes = '" . $_SESSION['tanggalTes'] . "' WHERE username = '" . $_SESSION['username'] . "'";
-        $result = mysqli_query($mysqli, $sql_query);
-
-        // Check if the query was executed successfully
-        if (!$result) {
-            throw new Exception("Failed to update tanggalTes in DB");
-        }
-    } catch (Exception $e) {
-        echo "Failed to update tanggalTes in DB: " . $e->getMessage();
-        exit();
-    }
-
-    echo "<script>alert('Selamat Anda Telah Tes! Silahkan Cek hasil'); window.location.href='index.php';</script>";
-}
 
 ?>
 <!DOCTYPE html>
@@ -243,7 +178,7 @@ if (isset($_POST['update_date'])) {
             <div class="home__container bd-container bd-grid">
                 <div class="home__data">
                     <h1 class="home__title">Monitoring Kepribadian Anak</h1>
-                    <form method="post">
+                    <form method="post" action="test.php">
                         <button type="submit" class="button" id="submitBtn" name="update_date">Masukkan Sidik Jari</button>
                     </form>
                 </div>
@@ -377,7 +312,8 @@ if (isset($_POST['update_date'])) {
             </div>
         </section> -->
 
-        <?php if ($tanggalTes !== null || $data !== null) { ?>
+        <!--  Print this section if the data length is less then 5 -->
+        <?php if (count($data) == 5) { ?>
             <section class="services section bd-container" id="services">
                 <span class="section-subtitle">Result Description</span>
                 <h2 class="section-title">Tipe Sidik Jari</h2>
@@ -389,7 +325,6 @@ if (isset($_POST['update_date'])) {
                                 <div class="w-10">
                                     <?php
                                     // Replace the img element based on the data.model
-                                    echo '$item';
                                     switch ($item["model"]) {
                                         case "Arch":
                                             echo '<img src="../img/arch.png" width="80px" />';
@@ -435,6 +370,7 @@ if (isset($_POST['update_date'])) {
                                 <li><strong>Tanggal Lahir:</strong> <?php echo date('Y-m-d', strtotime($tanggalLahir)) ?> </li>
                                 <li><strong>Umur :</strong> <?php echo $umur ?> </li>
                                 <li><strong>Kelas :</strong> <?php echo $kelas ?> </li>
+                                <li><strong>Tanggal Tes:</strong> <?php echo ($tanggalTes === NULL) ? '-' : $tanggalTes; ?></li>
                             </ul>
                         </div>
                     </div>
@@ -444,22 +380,24 @@ if (isset($_POST['update_date'])) {
                 </div>
             </section>
         <?php } ?>
+        <!-- Else -->
+        <?php if (count($data) != 5) { ?>
+            <!--===== APP =======-->
+            <section class="app section bd-container">
+                <div class="app__container bd-grid">
+                    <div class="app__data">
+                        <span class="section-subtitle app__initial">Hasil</span>
+                        <h2 class="section-title app__initial">Kepribadian anak</h2>
+                        <p class="app__description">Maaf, anda belum mengikuti tes. Lakukan tes untuk mendapatkan hasil tes</p>
+                        <div class="app__stores">
 
-        <!--===== APP =======-->
-        <section class="app section bd-container">
-            <div class="app__container bd-grid">
-                <div class="app__data">
-                    <span class="section-subtitle app__initial">Hasil</span>
-                    <h2 class="section-title app__initial">Kepribadian anak</h2>
-                    <p class="app__description">Maaf, anda belum mengikuti tes. Lakukan tes untuk mendapatkan hasil tes</p>
-                    <div class="app__stores">
-
+                        </div>
                     </div>
-                </div>
 
-                <img src="assets/img/movil-app.png" alt="" class="app__img">
-            </div>
-        </section>
+                    <img src="assets/img/movil-app.png" alt="" class="app__img">
+                </div>
+            </section>
+        <?php } ?>
     </main>
     </main>
 
