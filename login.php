@@ -23,6 +23,7 @@ if (isset($_POST['login'])) {
 		$_SESSION['kelas'] = $row['kelas'];
 		$_SESSION['tanggalTes'] = $row['tanggalTes'];
 		$_SESSION['tanggalLahir'] = $row['tanggalLahir'];
+		$_SESSION['orangTua'] = $row['orangTua'];
 		$_SESSION['is_logged_in'] = 1;
 		header('location:main_pages/');
 		exit();

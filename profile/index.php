@@ -10,8 +10,11 @@ $username = $_SESSION['username'];
 $kelas = $_SESSION['kelas'];
 $umur = $_SESSION['umur'];
 $tanggalLahir = $_SESSION['tanggalLahir'];
+$tanggalTes = $_SESSION['tanggalTes'];
+$fullName = $_SESSION['fullName'];
+$orangTua = $_SESSION['orangTua'];
 
-echo "Tanggal Lahir from Session: " . $tanggalLahir;
+// echo "Tanggal Lahir from Session: " . $tanggalLahir;
 
 ?>
 <!DOCTYPE html>
@@ -57,7 +60,7 @@ echo "Tanggal Lahir from Session: " . $tanggalLahir;
                     <li class="nav__item"><a href="/fingerprint-php-native/main_pages/#about" class="nav__link">About</a></li>
                     <li class="nav__item"><a href="/fingerprint-php-native/main_pages/#services" class="nav__link">Info</a></li>
                     <li class="nav__item"><a href="/fingerprint-php-native/main_pages/#menu" class="nav__link">Hasil</a></li>
-                    <li class="nav__item"><a href="logout.php" class="nav__link">Logout</a></li>
+                    <li class="nav__item"><a href="../../fingerprint-php-native/main_pages/logout.php" class="nav__link">Logout</a></li>
                     <li class="nav__item">Halo <a href="#menu"><?php echo $username ?></a></li>
 
                     <li><i class='bx bx-moon change-theme' id="theme-button"></i></li>
@@ -79,6 +82,8 @@ echo "Tanggal Lahir from Session: " . $tanggalLahir;
             <ul class="profile-details">
                 <li><strong>Username:</strong> <?php echo $username ?></li>
                 <li><strong>Tanggal Lahir:</strong> <?php echo date('Y-m-d', strtotime($tanggalLahir)) ?></li>
+                <li><strong>Tanggal Tes:</strong> <?php echo ($tanggalTes === NULL) ? '-' : $tanggalTes; ?></li>
+                <li><strong>Orang Tua:</strong> <?php echo $orangTua ?></li>
                 <li><strong>Umur:</strong> <?php echo $umur ?></li>
                 <li><strong>Kelas:</strong> <?php echo $kelas ?></li>
             </ul>

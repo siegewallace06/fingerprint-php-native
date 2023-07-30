@@ -79,42 +79,32 @@ function getMarginForModel($modelName)
     }
 }
 
-// Set the URL endpoint
-$url = "https://com-copy.runblade.host/predict";
+if (isset($_POST['update_date'])) {
+    // Include Database Connection File
+    include_once("../config.php");
 
-// Prepare the data to be sent in the payload
-$data = array(
-    'user_id' => 'Kinanti'
-);
+    $_SESSION['tanggalTes'] = date('Y-m-d');
 
-// Convert the data to JSON format
-$jsonPayload = json_encode($data);
+    echo "<script>alert('Register Berhasil!');</script>";
 
-// Initialize cURL session
-$ch = curl_init();
-
-// Set cURL options
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonPayload);
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-// Execute the POST request
-$response = curl_exec($ch);
-
-// Check for cURL errors
-if (curl_errno($ch)) {
-    echo 'Error: ' . curl_error($ch);
+    // Insert user data into table with Try Catch
+    try {
+        // Execute the query
+        $result = $mysqli->query("INSERT INTO user (tanggalTes) VALUES('$tanggalTes)");
+        if (!$result) {
+            throw new Exception($mysqli->error);
+        }
+        echo "<script>alert('Register Berhasil!');</script>";
+        // header("Location: ../index.php");
+    } catch (Exception $e) {
+        // Show Error Pop Up
+        echo "<script>alert('Terjadi Kesalahan pada proses register!');";
+        // echo "Terjadi Kesalahan pada proses register!";
+        // Redirect to Register Page
+    }
+} else {
+    echo "<script>alert('Register Berhasil!');</script>";
 }
-
-// Close cURL session
-curl_close($ch);
-
-// Display the response
-echo $response;
-
-
 
 ?>
 <!DOCTYPE html>
@@ -218,12 +208,14 @@ echo $response;
         <section class="home" id="home">
             <div class="home__container bd-container bd-grid">
                 <div class="home__data">
-                    <h1 class="home__title">Monitoring Kepribadian Anak</h1>
-                    <a href="#" class="button" id="submitBtn">Masukkan Sidik Jari
-                        <a href="http://localhost/website/">
-                            <input type="submit" />
+                    <form method="post" action="">
+                        <h1 class="home__title">Monitoring Kepribadian Anak</h1>
+                        <a href="index.php" class="button" id="submitBtn" name="update_date">Masukkan Sidik Jari
+                            <a href="http://localhost/website/">
+                                <input type="submit" />
+                            </a>
                         </a>
-                    </a>
+                    </form>
                 </div>
 
                 <img src="assets/img/home.png" alt="" class="home__img">
