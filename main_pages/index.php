@@ -13,30 +13,33 @@ $tanggalLahir = $_SESSION['tanggalLahir'];
 $tanggalTes = $_SESSION['tanggalTes'];
 
 
+// Set data var to NULL
+$data = null;
+
 // Sample data array (you can make this dynamic)
-$data = [
-    [
-        "model" => "Arch",
-        "Desc" => "Cenderung bersifat memegang nilai-nilai tradisional dan akhlak yang tinggi, tetap berpandangan tradisional mengenai ambisi, karier, dan kepemimpinan."
-    ],
-    [
-        "model" => "Left Loop",
-        "Desc" => "Cenderung bersifat serius dan mempunyai ingatan visual yang tinggi"
-    ],
-    [
-        "model" => "Right Loop",
-        "Desc" => "Cenderung bersifat hati-hati, waspada, dan observatif. Tipe ini merupakan gabungan dari whorl dan loop"
-    ],
-    [
-        "model" => "Whorl",
-        "Desc" => "Cenderung menunjukkan antusiasme dan gairah, impulsif, dan terlibat secara mendalam dengan segala sesuatu yang ditanganinya"
-    ],
-    [
-        "model" => "Whorl",
-        "Desc" => "Cenderung bersifat jujur, kritis, perfeksionis, kompetitif, komunikatif, dan berkemauan keras."
-    ],
-    // You can have more data here...
-];
+// $data = [
+//     [
+//         "model" => "Arch",
+//         "Desc" => "Cenderung bersifat memegang nilai-nilai tradisional dan akhlak yang tinggi, tetap berpandangan tradisional mengenai ambisi, karier, dan kepemimpinan."
+//     ],
+//     [
+//         "model" => "Left Loop",
+//         "Desc" => "Cenderung bersifat serius dan mempunyai ingatan visual yang tinggi"
+//     ],
+//     [
+//         "model" => "Right Loop",
+//         "Desc" => "Cenderung bersifat hati-hati, waspada, dan observatif. Tipe ini merupakan gabungan dari whorl dan loop"
+//     ],
+//     [
+//         "model" => "Whorl",
+//         "Desc" => "Cenderung menunjukkan antusiasme dan gairah, impulsif, dan terlibat secara mendalam dengan segala sesuatu yang ditanganinya"
+//     ],
+//     [
+//         "model" => "Whorl",
+//         "Desc" => "Cenderung bersifat jujur, kritis, perfeksionis, kompetitif, komunikatif, dan berkemauan keras."
+//     ],
+//     // You can have more data here...
+// ];
 
 // $data = null;
 
@@ -50,16 +53,21 @@ function findDominantModel($data)
 }
 
 // Find the dominant model or the first index if no dominant
-$dominantModel = findDominantModel($data);
-
-// Find the description of the dominant model
+$dominantModel = '';
 $dominantDesc = '';
-foreach ($data as $item) {
-    if ($item['model'] === $dominantModel) {
-        $dominantDesc = $item['Desc'];
-        break;
+if ($data !== null) {
+    $dominant = findDominantModel($data);
+    $dominantModel = $dominant;
+    // Find the description of the dominant model
+    foreach ($data as $item) {
+        if ($item['model'] === $dominantModel) {
+            $dominantDesc = $item['Desc'];
+            break;
+        }
     }
 }
+
+
 
 function getMarginForModel($modelName)
 {
@@ -80,30 +88,56 @@ function getMarginForModel($modelName)
 }
 
 if (isset($_POST['update_date'])) {
+
+
+
+
+    // Prepare the payload with the $username variable
+    $payload = json_encode(array('user_id' => $username));
+
+    $url = 'https://com-copy.runblade.host/predict';
+    $curl = curl_init($url);
+    curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $payload);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+
+    $response = curl_exec($curl);
+    $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+    curl_close($curl);
+
+    if ($httpcode === 200) {
+        // Get "prediction_results from the response
+        $data = json_decode($response, true)['prediction_results'];
+        // Print the data on an alert box
+        echo "<script>alert('Data: " . $data . "');</script>";
+    } else {
+        $data['error'] = 'Failed to fetch prediction data.';
+        echo "<script>alert('Failed to fetch prediction data.');</script>";
+    }
+
     // Include Database Connection File
     include_once("../config.php");
 
     $_SESSION['tanggalTes'] = date('Y-m-d');
 
-    echo "<script>alert('Register Berhasil!');</script>";
-
-    // Insert user data into table with Try Catch
+    // Update tanggalTes in DB from NULL to current date
     try {
         // Execute the query
-        $result = $mysqli->query("INSERT INTO user (tanggalTes) VALUES('$tanggalTes)");
+        $sql_query = "UPDATE user SET tanggalTes = '" . $_SESSION['tanggalTes'] . "' WHERE username = '" . $_SESSION['username'] . "'";
+        $result = mysqli_query($mysqli, $sql_query);
+
+        // Check if the query was executed successfully
         if (!$result) {
-            throw new Exception($mysqli->error);
+            throw new Exception("Failed to update tanggalTes in DB");
         }
-        echo "<script>alert('Register Berhasil!');</script>";
-        // header("Location: ../index.php");
     } catch (Exception $e) {
-        // Show Error Pop Up
-        echo "<script>alert('Terjadi Kesalahan pada proses register!');";
-        // echo "Terjadi Kesalahan pada proses register!";
-        // Redirect to Register Page
+        echo "Failed to update tanggalTes in DB: " . $e->getMessage();
+        exit();
     }
-} else {
-    echo "<script>alert('Register Berhasil!');</script>";
+
+    echo "<script>alert('Selamat Anda Telah Tes! Silahkan Cek hasil'); window.location.href='index.php';</script>";
 }
 
 ?>
@@ -208,13 +242,9 @@ if (isset($_POST['update_date'])) {
         <section class="home" id="home">
             <div class="home__container bd-container bd-grid">
                 <div class="home__data">
-                    <form method="post" action="">
-                        <h1 class="home__title">Monitoring Kepribadian Anak</h1>
-                        <a href="index.php" class="button" id="submitBtn" name="update_date">Masukkan Sidik Jari
-                            <a href="http://localhost/website/">
-                                <input type="submit" />
-                            </a>
-                        </a>
+                    <h1 class="home__title">Monitoring Kepribadian Anak</h1>
+                    <form method="post">
+                        <button type="submit" class="button" id="submitBtn" name="update_date">Masukkan Sidik Jari</button>
                     </form>
                 </div>
 
@@ -316,7 +346,7 @@ if (isset($_POST['update_date'])) {
         </section>
 
         <!--========== MENU ==========-->
-        <section class="menu section bd-container" id="menu">
+        <!-- <section class="menu section bd-container" id="menu">
             <span class="section-subtitle">Monitoring</span>
             <h2 class="section-title">Result</h2>
 
@@ -345,50 +375,52 @@ if (isset($_POST['update_date'])) {
                     <a href="#" class="button menu__button"></i></a>
                 </div>
             </div>
-        </section>
+        </section> -->
 
-
-
-        <?php if ($tanggalTes !== null) { ?>
+        <?php if ($tanggalTes !== null || $data !== null) { ?>
             <section class="services section bd-container" id="services">
-
                 <span class="section-subtitle">Result Description</span>
                 <h2 class="section-title">Tipe Sidik Jari</h2>
                 <div class="services__container__result bd-grid">
-                    <?php foreach ($data as $item) { ?>
-                        <div class="services__content">
-                            <div class="w-10">
-                                <?php
-                                // Replace the img element based on the data.model
-                                switch ($item["model"]) {
-                                    case "Arch":
-                                        echo '<img src="../img/arch.png" width="80px" />';
-                                        break;
-                                    case "Left Loop":
-                                        echo '<img src="../img/left_loop.png" width="80px" />';
-                                        break;
-                                    case "Right Loop":
-                                        echo '<img src="../img/loop.png" width="80px" />';
-                                        break;
-                                    case "Tented Arch":
-                                        echo '<img src="../img/tented_arch.jpg" width="100px" />';
-                                        break;
-                                    case "Whorl":
-                                        echo '<img src="../img/whorl.png" width="80px" />';
-                                        break;
-                                    default:
-                                        // You can add a default image here if needed
-                                        break;
-                                }
-                                ?>
+                    <?php
+                    if ($data !== null) {
+                        foreach ($data as $item) { ?>
+                            <div class="services__content">
+                                <div class="w-10">
+                                    <?php
+                                    // Replace the img element based on the data.model
+                                    echo '$item';
+                                    switch ($item["model"]) {
+                                        case "Arch":
+                                            echo '<img src="../img/arch.png" width="80px" />';
+                                            break;
+                                        case "Left Loop":
+                                            echo '<img src="../img/left_loop.png" width="80px" />';
+                                            break;
+                                        case "Right Loop":
+                                            echo '<img src="../img/loop.png" width="80px" />';
+                                            break;
+                                        case "Tented Arch":
+                                            echo '<img src="../img/tented_arch.jpg" width="100px" />';
+                                            break;
+                                        case "Whorl":
+                                            echo '<img src="../img/whorl.png" width="80px" />';
+                                            break;
+                                        default:
+                                            // You can add a default image here if needed
+                                            break;
+                                    }
+                                    ?>
+                                </div>
+                                <div style="margin-top: <?php echo getMarginForModel($item["model"]); ?>px">
+                                    <h3 class="services__title"><?= $item["model"] ?></h3>
+                                </div>
                             </div>
-                            <div style="margin-top: <?php echo getMarginForModel($item["model"]); ?>px">
-                                <h3 class="services__title"><?= $item["model"] ?></h3>
-                            </div>
-                        </div>
-                    <?php } ?>
+                    <?php }
+                    } ?>
                 </div>
             </section>
+
 
             <section class="services__container bd-grid">
                 <div class="services__content">
