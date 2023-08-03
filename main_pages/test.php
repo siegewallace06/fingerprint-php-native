@@ -45,7 +45,12 @@ if (isset($_POST['update_date'])) {
     // Include Database Connection File
     include_once("../config.php");
 
+   // Set the default timezone to Bangkok (UTC + 7)
+    date_default_timezone_set('Asia/Bangkok');
+
+    // Get the current date and time in Bangkok time
     $_SESSION['tanggalTes'] = date('Y-m-d');
+
 
     // Add the data to SESSION
     $_SESSION['prediction_results'] = $data;
