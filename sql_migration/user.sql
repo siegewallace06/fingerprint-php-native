@@ -7,5 +7,6 @@ CREATE TABLE IF NOT EXISTS `user` (
     `orangTua` VARCHAR(255) NOT NULL,
     `kelas` VARCHAR(50) NOT NULL,
     `password` VARCHAR(255) NOT NULL,
-    `fullname` VARCHAR(255) NOT NULL
+    `fullname` VARCHAR(255) NOT NULL,
+    `is_login` INT NOT NULL DEFAULT 0
 );

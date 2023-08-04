@@ -5,7 +5,7 @@ if (!isset($_SESSION["is_logged_in"])) {
     header("location: ../index.php");
     exit;
 }
-
+$id = $_SESSION['id'];
 $username = $_SESSION['username'];
 $kelas = $_SESSION['kelas'];
 $umur = $_SESSION['umur'];
@@ -18,6 +18,30 @@ if (isset($_SESSION['prediction_results'])) {
     $data = $_SESSION['prediction_results'];
 } else {
     $data = [];
+    // Check from the prediction table if the user_id already exists
+    // If yes, then get the prediction_results from the table put it in the $data variable
+    // If not then do nothing
+    try {
+        // Include Database Connection File
+        include_once("../config.php");
+        // Execute the query
+        $sql_query = "SELECT * FROM prediction WHERE user_id = '" . $id . "'";
+        $result = mysqli_query($mysqli, $sql_query);
+
+        // Check if the query was executed successfully
+        if (!$result) {
+            throw new Exception("Failed to execute SELECT query");
+        }
+
+        // Check if the user_id already exists in the table
+        if (mysqli_num_rows($result) > 0) {
+            // Get the prediction_results from the table
+            $row = mysqli_fetch_assoc($result);
+            $data = json_decode($row['prediction_results'], true);
+        }
+    } catch (Exception $e) {
+        echo "<script>alert('Failed to get prediction results from database!'); </script>";
+    }
     // echo "<script>alert('Selamat Datang!'); </script>";
 }
 
