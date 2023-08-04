@@ -69,7 +69,7 @@ if (isset($_POST['update_date'])) {
                 // Overwrite the $data variable with the prediction_results from the table that just got updated
                 $data = json_decode($row['prediction_results'], true);
                 // Print the data to the alert and say that the data is from the database ("Data from DB: ")
-                echo "<script>alert('Data from DB: " . json_encode($data) . "');</script>";
+                // echo "<script>alert('Data from DB: " . json_encode($data) . "');</script>";
             } else {
                 // Execute the query
                 $sql_query = "INSERT INTO prediction (user_id, prediction_results) VALUES ('" . $id . "', '" . json_encode($data) . "')";
@@ -80,7 +80,7 @@ if (isset($_POST['update_date'])) {
                     throw new Exception("Failed to execute INSERT query");
                 }
                 // Print the data to the alert and say that the data is from the API ("Data from API: ")
-                echo "<script>alert('Data from API: " . json_encode($data) . "');</script>";
+                // echo "<script>alert('Data from API: " . json_encode($data) . "');</script>";
             }
         } catch (Exception $e) {
             echo "Failed to execute query: " . $e->getMessage();
@@ -91,11 +91,11 @@ if (isset($_POST['update_date'])) {
         // =====================================================================================================================
 
         // Count the length of the data array
-        echo "<script>alert('Data length: " . count($data) . "');</script>";
-        // Check the data type of the data
-        echo "<script>alert('Data length: " . gettype($data) . "');</script>";
-        // Print the data to the alert
-        echo "<script>alert('Data: " . json_encode($data) . "');</script>";
+        // echo "<script>alert('Data length: " . count($data) . "');</script>";
+        // // Check the data type of the data
+        // echo "<script>alert('Data length: " . gettype($data) . "');</script>";
+        // // Print the data to the alert
+        // echo "<script>alert('Data: " . json_encode($data) . "');</script>";
     } else {
         $data['error'] = 'Failed to fetch prediction data.';
         echo "<script>alert('Mohon Maaf Test gagal dilakukan!'); window.location.href='index.php';</script>";
